@@ -1,0 +1,76 @@
+@use '@styles/variables/colors' as *;
+
+.main-layout {
+  display: flex;
+  flex-direction: column; // 상(Header) 하(Body)
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+  // 상단 헤더 (공통)
+  .header-bar {
+    height: 60px; // 헤더 높이 고정
+    width: 100%;
+    z-index: 1000;
+    flex-shrink: 0;
+    background-color: $white;
+    border-bottom: 1px solid $border;
+  }
+
+  // 헤더 아래 전체 영역
+  .body-wrapper {
+    display: flex; // 좌(Nav) 우(Content)
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  // 모바일 배경 오버레이
+  .nav-overlay {
+    position: fixed;
+    top: 60px; // 헤더 아래부터
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 998;
+  }
+
+  // 본문 컨텐츠 영역
+  .main-content {
+    flex: 1;
+    overflow-y: auto;
+    background-color: $bg;
+    padding: 24px;
+    transition: all 0.3s ease; // 부드러운 전환
+
+    .container {
+      max-width: 1200px;
+      margin: 0;
+      height: 100%;
+    }
+  }
+
+  /* --- 반응형 레이아웃 핵심 --- */
+
+  // 1. 모바일 (768px 이하)
+  @media (max-width: 768px) {
+    .main-content {
+      padding: 16px; // 모바일은 패딩을 조금 줄임
+    }
+    
+    // 모바일에서는 NavBar가 body-wrapper 안에서 붕 뜨도록 NavBar.scss에서 처리함
+  }
+
+  // 2. 데스크탑 (769px 이상)
+  @media (min-width: 769px) {
+    .nav-overlay {
+      display: none; // 데스크탑에선 오버레이 필요 없음
+    }
+
+    // 데스크탑에서 NavBar가 확장/축소될 때 본문 영역의 여백이 자연스럽게 반응
+    // (NavBar.scss에서 width가 바뀌면 flex: 1인 main-content가 자동으로 늘어남)
+  }
+}

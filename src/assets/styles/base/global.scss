@@ -1,0 +1,30 @@
+// src/styles/global.scss
+
+@use '@styles/base/fonts';      // 1. 방금 만든 폰트 설정 불러오기
+@use '@styles/variables/colors' as *; // 2. 컬러 변수 불러오기
+
+// 기존 body 스타일을 아래와 같이 업데이트
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $bg;  // 우리가 설정한 #fafafa (인스타 배경색)
+  color: $text;           // #262626
+  
+  // fonts.scss에서 이미 * { font-family: ... }를 설정했다면 생략 가능하지만,
+  // 명확하게 하기 위해 한 번 더 선언해줘도 좋습니다.
+  font-family: 'NotoSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+// 링크나 버튼 같은 기본 요소들도 초기화해주면 좋습니다.
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}

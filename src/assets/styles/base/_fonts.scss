@@ -1,0 +1,43 @@
+/* Noto Sans KR 폰트 등록 */
+@font-face {
+  font-family: 'NotoSans';
+  src: url('/fonts/NotoSansKR-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NotoSans';
+  src: url('/fonts/NotoSansKR-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* 인스타그램 감성 전역 적용 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+  // 1. 폰트 패밀리 지정 (한글은 NotoSans, 영문/숫자는 시스템 폰트 우선순위)
+  font-family: 'NotoSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  
+  // 2. 인스타그램 특유의 촘촘하고 세련된 느낌
+  letter-spacing: -0.02em; // 자간을 살짝 좁힘
+  line-height: 1.4;        // 줄 간격 최적화
+  
+  // 3. 폰트 렌더링 최적화
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 제목/강조 텍스트 (인스타 로고나 메뉴 느낌) */
+h1, h2, h3, h4, b, strong {
+  font-weight: 700;
+  letter-spacing: -0.03em; // 제목은 더 촘촘하게
+}
+
+/* 입력창 및 버튼 (앱 느낌을 위해 폰트 상속) */
+input, button, textarea {
+  font-family: inherit;
+}
