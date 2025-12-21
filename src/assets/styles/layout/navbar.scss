@@ -1,0 +1,166 @@
+@use '@styles/variables/colors' as *;
+
+.nav-bar {
+  background-color: $white;
+  border-right: 1px solid $border;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  overflow: hidden; // 내용이 넘쳐서 아이콘이 밀리는 것을 방지
+
+  // 1. 닫혔을 때 (아이콘만 중앙 정렬)
+  &.collapsed {
+    width: 72px;
+
+    .nav-link, .more-btn {
+      padding: 12px 0;
+      justify-content: center; // 아이콘을 가로 중앙에 배치
+    }
+
+    .icon-wrapper {
+      margin-right: 0; // 텍스트가 숨겨지므로 여백 제거
+    }
+
+    .nav-text {
+      opacity: 0;
+      width: 0; // 공간 자체를 없애서 밀림 방지
+      visibility: hidden;
+      transform: translateX(10px);
+    }
+  }
+
+  // 2. 열렸을 때 (아이콘 + 텍스트)
+  &.open {
+    width: 244px;
+    padding: 8px 12px 20px;
+
+    .nav-link, .more-btn {
+      padding: 12px 16px;
+      justify-content: flex-start; // 왼쪽부터 정렬
+      gap: 12px; // 아이콘과 텍스트 사이의 명확한 간격
+    }
+
+    .nav-text {
+      opacity: 1;
+      width: auto;
+      visibility: visible;
+      transform: translateX(0);
+    }
+  }
+
+  .nav-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0 0;
+    flex: 1;
+
+    .nav-item {
+      margin: 4px 0;
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        color: $text;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        text-decoration: none;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        &.active {
+          background-color: rgba($primary, 0.05);
+          .nav-text { font-weight: 800; color: $primary; }
+          .icon-wrapper { color: $primary; svg { stroke-width: 2.5px; } }
+        }
+
+        .icon-wrapper {
+          width: 24px; // 크기 고정
+          height: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0; // 아이콘이 찌그러지지 않게 보호
+          transition: color 0.2s;
+        }
+
+        .nav-text {
+          font-size: 0.95rem;
+          white-space: nowrap;
+          transition: opacity 0.2s, transform 0.2s;
+        }
+      }
+    }
+  }
+
+  .nav-footer {
+    border-top: 1px solid $border;
+    padding-top: 8px;
+
+    .more-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      color: $text;
+      border-radius: 8px;
+      transition: background 0.2s;
+
+      .icon-wrapper {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-bar {
+    position: fixed; // 화면에 고정
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 9999; // 최상단으로 올림
+    width: 280px !important; // 모바일에서는 충분한 너비 확보
+    box-shadow: 10px 0 20px rgba(0, 0, 0, 0.1);
+    
+    // 기본 상태: 왼쪽으로 완전히 숨김
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+
+    &.open {
+      transform: translateX(0); // 열림 상태
+    }
+
+    &.collapsed {
+      transform: translateX(-100%); // 모바일에서 collapsed는 곧 닫힘 상태
+    }
+
+    // 모바일에서는 nav-text가 항상 보여야 하므로 강제 설정
+    .nav-text {
+      opacity: 1 !important;
+      visibility: visible !important;
+      width: auto !important;
+      transform: none !important;
+    }
+
+    .nav-link {
+      justify-content: flex-start !important;
+      padding: 16px !important; // 터치하기 쉽게 패딩 확대
+      gap: 15px !important;
+    }
+  }
+}
