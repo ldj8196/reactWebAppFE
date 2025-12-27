@@ -1,0 +1,64 @@
+@use '@styles/variables/colors' as *;
+
+.member-list-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+
+  .search-box {
+    position: relative;
+    margin-bottom: 12px;
+
+    input {
+      width: 100%;
+      padding: 8px 32px 8px 12px;
+      border: 1px solid $border;
+      border-radius: 8px;
+      background: $bg;
+      font-size: 0.85rem;
+      outline: none;
+      transition: all 0.2s;
+
+      &:focus {
+        border-color: $primary;
+        background: $white;
+        box-shadow: 0 0 0 3px rgba($primary, 0.1);
+      }
+    }
+
+    .clear-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: $sub-text;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+  }
+
+  .info-bar {
+    margin-bottom: 12px;
+    span {
+      font-size: 0.85rem;
+      color: $text;
+      strong { color: $primary; }
+    }
+  }
+
+  .member-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; // 카드 사이의 간격
+    padding-right: 4px;
+
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-thumb { background: $border; border-radius: 10px; }
+  }
+}

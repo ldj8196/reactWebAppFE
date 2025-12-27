@@ -5,3 +5,20 @@ $text: #262626;
 $sub-text: #8e8e8e;
 $bg: #fafafa;
 $white: #ffffff;
+
+// 등급별 색상 정의
+$tier-pro: #ffffff; // 선수 (하얀색)
+$tier-s: #000000;   // S (검은색)
+$tier-a: #ff4d4f;   // A (빨강색)
+$tier-b: #1890ff;   // B (파랑색)
+$tier-c: #52c41a;   // C (초록색)
+$tier-d: #fadb14;   // D, 초심 (노란색)
+
+// 직급별 컬러 변수
+$pos-president: #FFD700;    // 회장 (골드)
+$pos-vice: #FFECB3;         // 부회장 (연한 골드)
+$pos-director: #3B82F6;     // 경기이사 (블루)
+$pos-manager: #8B5CF6;      // 총무 (퍼플)
+$pos-finance: #10B981;      // 재무 (에메랄드)
+$pos-advisor: #64748B;      // 고문 (슬레이트)
+$pos-member: $sub-text;     // 일반회원 (기존 보조 텍스트 색상)

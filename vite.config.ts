@@ -5,7 +5,7 @@ import path from 'path'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-    base: "/",
+    base: '/reactWebAppFE/',
     resolve: {
     alias: {
       '@styles': path.resolve(__dirname, 'src/assets/styles'),

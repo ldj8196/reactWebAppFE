@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { createBrowserRouter, Navigate, type RouteObject } from 'react-router-dom';
+import { createHashRouter, Navigate, type RouteObject } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout';
 import LoadingScreen from '../components/LoadingScreen';
 import Login from '../pages/Login';
@@ -58,5 +58,6 @@ const layoutRoutes: RouteObject[] = [
   },
 ];
 
-const router = createBrowserRouter([...fixedRoutes, ...layoutRoutes]);
+const router = createHashRouter([...fixedRoutes, ...layoutRoutes]);
+
 export default router;

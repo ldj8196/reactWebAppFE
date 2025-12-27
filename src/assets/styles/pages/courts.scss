@@ -1,0 +1,46 @@
+@use '@styles/variables/colors' as *;
+
+.court-page-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: $bg;
+  padding: 12px; // 20px -> 12px로 축소 (세로 공간 확보)
+  gap: 15px;     // 간격 축소
+  box-sizing: border-box; 
+  overflow: hidden; 
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    overflow-y: auto;
+    height: auto;
+  }
+
+  .court-section {
+    flex: 7.5; // 코트 영역을 더 넓게 (기존 7)
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .court-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 12px; // 간격 축소
+      height: 100%;
+      // 카드들이 부모 높이를 넘어가지 않도록 강제
+      align-content: stretch; 
+    }
+  }
+
+  .member-section {
+    flex: 2.5; // 회원 리스트를 더 좁게 (기존 3)
+    height: 100%;
+    background-color: $white;
+    border: 1px solid $border;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}

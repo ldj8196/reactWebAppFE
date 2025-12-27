@@ -1,0 +1,94 @@
+@use '@styles/variables/colors' as *;
+
+.player-small-card {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  transition: all 0.2s;
+  cursor: pointer;
+
+  .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    // 등급별 색상
+    &.tier-선수 { background-color: $tier-pro; }
+    &.tier-S { background-color: $tier-s; color: white; }
+    &.tier-A { background-color: $tier-a; color: white; }
+    &.tier-B { background-color: $tier-b; color: white; }
+    &.tier-C { background-color: $tier-c; color: white; }
+    &.tier-D, &.tier-초심 { background-color: $tier-d; }
+
+    svg { width: 65%; height: 65%; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1)); }
+  }
+
+  .player-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      .name { font-weight: 600; color: $text; }
+
+      .pos-badge {
+        font-size: 10px;
+        padding: 1px 5px;
+        border-radius: 4px;
+        font-weight: 700;
+        line-height: 1.2;
+
+        &.pos-회장 { background: $pos-president; color: #000; }
+        &.pos-부회장 { background: $pos-vice; color: #856404; }
+        &.pos-경기이사 { background: $pos-director; color: #fff; }
+        &.pos-총무 { background: $pos-manager; color: #fff; }
+        &.pos-재무 { background: $pos-finance; color: #fff; }
+        &.pos-고문 { background: $pos-advisor; color: #fff; }
+        &.pos-일반회원 { border: 1px solid $border; color: $sub-text; font-weight: 400; }
+      }
+
+      .age-tag {
+        font-size: 0.7rem;
+        color: $sub-text;
+        background: $bg;
+        padding: 1px 5px;
+        border-radius: 4px;
+      }
+    }
+
+    .tier-text { font-size: 0.75rem; color: $sub-text; }
+  }
+
+  .check-icon { margin-left: auto; color: $primary; font-weight: bold; }
+
+  // --- 사이즈별 스타일 정의 ---
+  &.md {
+    padding: 10px;
+    border: 1px solid $border;
+    border-radius: 10px;
+    background: $white;
+    
+    .avatar { width: 38px; height: 38px; border-radius: 10px; margin-right: 12px; }
+    .name { font-size: 0.95rem; }
+    
+    &.active {
+      border-color: $primary;
+      background: rgba($primary, 0.04);
+      .name { color: $primary; }
+    }
+    &:hover { border-color: $primary; transform: translateY(-1px); }
+  }
+
+  &.sm {
+    gap: 8px;
+    .avatar { width: 26px; height: 26px; border-radius: 6px; }
+    .name { font-size: 0.85rem; }
+    .pos-badge { font-size: 8px; padding: 0 3px; }
+  }
+}
