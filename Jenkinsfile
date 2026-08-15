@@ -22,12 +22,11 @@ pipeline {
         // 3. 우분투 호스트의 Nginx 폴더로 빌드 결과물 쏙 빼오기
         stage('Deploy to Nginx') {
             steps {
-                // 기존 Nginx 폴더 싹 비우기
-                sh 'sudo rm -rf /var/www/html/*'
-                // 임시 컨테이너 안에 있는 결과물(/output/.)을 우분투 호스트의 /var/www/html로 복사
+                // sudo를 빼고 깔끔하게 명령어 실행
+                sh 'rm -rf /var/www/html/*'
                 sh 'docker cp temp-frontend-container:/output/. /var/www/html/'
                 
-                // 사용이 끝난 임시 컨테이너와 빌드 이미지 깔끔하게 삭제 (정리)
+                // 사용이 끝난 임시 컨테이너와 빌드 이미지 깔끔하게 삭제
                 sh 'docker rm temp-frontend-container'
                 sh 'docker rmi frontend-build-image'
             }
