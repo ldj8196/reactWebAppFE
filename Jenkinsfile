@@ -12,8 +12,12 @@ pipeline {
         // 2. 도커를 이용해 격리된 환경에서 빌드 후 임시 컨테이너 생성
         stage('Build with Docker') {
             steps {
-                // -f 옵션으로 커스텀한 Dockerfile 파일명을 지정해 줍니다!
+                // 혹시 남아있을지 모르는 이전 임시 컨테이너 강제 삭제 (에러 무시)
+                sh 'docker rm -f temp-frontend-container || true'
+                
+                // 도커 이미지 빌드
                 sh 'docker build -f frontend.dockerfile -t frontend-build-image .'
+                
                 // 빌드 결과물을 꺼내기 위한 일회용 임시 컨테이너 생성
                 sh 'docker create --name temp-frontend-container frontend-build-image'
             }
