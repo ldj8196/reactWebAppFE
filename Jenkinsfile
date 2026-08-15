@@ -9,29 +9,24 @@ pipeline {
             }
         }
 
-        // 2. 도커를 이용해 격리된 환경에서 빌드 후 임시 컨테이너 생성
+        // 2. 도커 이미지 빌드
         stage('Build with Docker') {
             steps {
-                // 혹시 남아있을지 모르는 이전 임시 컨테이너 강제 삭제 (에러 무시)
-                sh 'docker rm -f temp-frontend-container || true'
+                // 이전 이미지나 캐시 충돌 방지용 삭제 (에러 무시)
+                sh 'docker rmi -f frontend-build-image || true'
                 
-                // 도커 이미지 빌드
+                // 도커 이미지 빌드 (Vite 빌드 포함)
                 sh 'docker build -f frontend.dockerfile -t frontend-build-image .'
-                
-                // 빌드 결과물을 꺼내기 위한 일회용 임시 컨테이너 생성
-                sh 'docker create --name temp-frontend-container frontend-build-image'
             }
         }
 
-        // 3. 우분투 호스트의 Nginx 폴더로 빌드 결과물 쏙 빼오기
+        // 3. 우분투 호스트의 Nginx 폴더로 결과물 즉시 복사
         stage('Deploy to Nginx') {
             steps {
-                // sudo를 빼고 깔끔하게 명령어 실행
-                sh 'rm -rf /var/www/html/*'
-                sh 'docker cp temp-frontend-container:/output/. /var/www/html/'
+                // 도커 컨테이너를 실행하면서 우분투 호스트의 /var/www/html을 /host/html로 마운트하여 내부에서 복사 후 자동 소멸(--rm)
+                sh 'docker run --rm -v /var/www/html:/host/html frontend-build-image sh -c "rm -rf /host/html/* && cp -r /output/. /host/html/"'
                 
-                // 사용이 끝난 임시 컨테이너와 빌드 이미지 깔끔하게 삭제
-                sh 'docker rm temp-frontend-container'
+                // 빌드에 사용된 도커 이미지 정리
                 sh 'docker rmi frontend-build-image'
             }
         }
