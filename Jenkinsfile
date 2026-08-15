@@ -12,8 +12,8 @@ pipeline {
         // 2. 도커를 이용해 격리된 환경에서 빌드 후 임시 컨테이너 생성
         stage('Build with Docker') {
             steps {
-                // 도커 이미지 빌드 (방금 수정한 node:22 Dockerfile 사용)
-                sh 'docker build -t frontend-build-image .'
+                // -f 옵션으로 커스텀한 Dockerfile 파일명을 지정해 줍니다!
+                sh 'docker build -f frontend.dockerfile -t frontend-build-image .'
                 // 빌드 결과물을 꺼내기 위한 일회용 임시 컨테이너 생성
                 sh 'docker create --name temp-frontend-container frontend-build-image'
             }
